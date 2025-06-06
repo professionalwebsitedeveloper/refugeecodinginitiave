@@ -1,0 +1,964 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Refugee Coders Initiative - Empowering Refugees Through Tech Education</title>
+    <style>
+        :root {
+            --primary-color: #2E8B57; /* Sea Green */
+            --secondary-color: #3CB371; /* Medium Sea Green */
+            --dark-color: #1E5631;
+            --light-color: #E4F5E4;
+            --text-color: #333;
+            --white: #FFFFFF;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f9f9f9;
+            color: var(--text-color);
+            line-height: 1.6;
+        }
+        
+        header {
+            background-color: var(--primary-color);
+            color: var(--white);
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        .container {
+            width: 90%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 15px;
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+        
+        .logo span {
+            color: var(--light-color);
+        }
+        
+        .menu-toggle {
+            display: none;
+            cursor: pointer;
+            font-size: 1.5rem;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+        
+        nav ul li {
+            margin-left: 1.5rem;
+        }
+        
+        nav ul li a {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+            padding: 0.5rem 0;
+            position: relative;
+            font-size: 0.95rem;
+        }
+        
+        nav ul li a:hover {
+            color: var(--light-color);
+        }
+        
+        nav ul li a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background-color: var(--light-color);
+            bottom: 0;
+            left: 0;
+            transition: width 0.3s;
+        }
+        
+        nav ul li a:hover::after {
+            width: 100%;
+        }
+        
+        .main-content {
+            margin-top: 70px;
+            padding: 2rem 0;
+        }
+        
+        .hero {
+            background: linear-gradient(rgba(46, 139, 87, 0.8), rgba(46, 139, 87, 0.9)), url('https://images.unsplash.com/photo-1522071820081-009f0129c71c?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+            background-size: cover;
+            background-position: center;
+            color: var(--white);
+            padding: 4rem 0;
+            text-align: center;
+        }
+        
+        .hero h1 {
+            font-size: 2.2rem;
+            margin-bottom: 1rem;
+            line-height: 1.3;
+        }
+        
+        .hero p {
+            font-size: 1.1rem;
+            max-width: 800px;
+            margin: 0 auto 2rem;
+            padding: 0 15px;
+        }
+        
+        .btn {
+            display: inline-block;
+            background-color: var(--secondary-color);
+            color: var(--white);
+            padding: 0.7rem 1.5rem;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+            transition: background-color 0.3s;
+            border: none;
+            cursor: pointer;
+            font-size: 0.95rem;
+        }
+        
+        .btn:hover {
+            background-color: var(--dark-color);
+        }
+        
+        section {
+            padding: 2.5rem 0;
+        }
+        
+        .section-title {
+            text-align: center;
+            margin-bottom: 1.5rem;
+            color: var(--primary-color);
+            font-size: 1.8rem;
+        }
+        
+        .services {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+        }
+        
+        .service-card {
+            background-color: var(--white);
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+        
+        .service-img {
+            height: 180px;
+            background-color: var(--light-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary-color);
+            font-size: 2.5rem;
+        }
+        
+        .service-content {
+            padding: 1.2rem;
+        }
+        
+        .service-content h3 {
+            margin-bottom: 0.8rem;
+            color: var(--primary-color);
+            font-size: 1.2rem;
+        }
+        
+        .service-content p {
+            font-size: 0.95rem;
+        }
+        
+        /* Impact Section Styles */
+        .impact-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        
+        .stat-card {
+            background-color: var(--white);
+            border-radius: 8px;
+            padding: 1.5rem;
+            text-align: center;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+        
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: bold;
+            color: var(--primary-color);
+            margin-bottom: 0.5rem;
+        }
+        
+        .stat-label {
+            font-size: 1rem;
+            color: var(--text-color);
+        }
+        
+        /* Testimonials Section Styles */
+        .testimonials {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+        
+        .testimonial-card {
+            background-color: var(--white);
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            position: relative;
+        }
+        
+        .testimonial-text {
+            font-style: italic;
+            margin-bottom: 1rem;
+            position: relative;
+            padding-left: 1.5rem;
+        }
+        
+        .testimonial-text::before {
+            content: '"';
+            position: absolute;
+            left: 0;
+            top: 0;
+            font-size: 2rem;
+            color: var(--secondary-color);
+            line-height: 1;
+        }
+        
+        .testimonial-author {
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+        
+        .testimonial-role {
+            font-size: 0.9rem;
+            color: #666;
+        }
+        
+        /* Requirements Section Styles */
+        .requirements-list {
+            max-width: 800px;
+            margin: 2rem auto 0;
+            background-color: var(--white);
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+        
+        .requirements-list ul {
+            list-style-type: none;
+        }
+        
+        .requirements-list li {
+            padding: 0.8rem 0;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            align-items: center;
+        }
+        
+        .requirements-list li:last-child {
+            border-bottom: none;
+        }
+        
+        .requirements-list li::before {
+            content: "✓";
+            color: var(--secondary-color);
+            font-weight: bold;
+            margin-right: 0.8rem;
+        }
+        
+        footer {
+            background-color: var(--primary-color);
+            color: var(--white);
+            padding: 2.5rem 0 1rem;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .footer-column h3 {
+            margin-bottom: 1.2rem;
+            position: relative;
+            padding-bottom: 0.5rem;
+            font-size: 1.2rem;
+        }
+        
+        .footer-column h3::after {
+            content: '';
+            position: absolute;
+            width: 40px;
+            height: 2px;
+            background-color: var(--light-color);
+            bottom: 0;
+            left: 0;
+        }
+        
+        .footer-column p {
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+            color: var(--light-color);
+        }
+        
+        .footer-column ul {
+            list-style: none;
+        }
+        
+        .footer-column ul li {
+            margin-bottom: 0.6rem;
+        }
+        
+        .footer-column ul li a {
+            color: var(--light-color);
+            text-decoration: none;
+            transition: color 0.3s;
+            font-size: 0.9rem;
+        }
+        
+        .footer-column ul li a:hover {
+            color: var(--white);
+        }
+        
+        .social-links {
+            display: flex;
+            gap: 0.8rem;
+            flex-wrap: wrap;
+        }
+        
+        .social-links a {
+            color: var(--white);
+            background-color: var(--secondary-color);
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-decoration: none;
+            transition: background-color 0.3s;
+            font-size: 0.9rem;
+        }
+        
+        .social-links a:hover {
+            background-color: var(--dark-color);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 1.2rem;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            font-size: 0.85rem;
+        }
+        
+        /* Form styles */
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: var(--white);
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+        
+        .form-group {
+            margin-bottom: 1rem;
+        }
+        
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+        }
+        
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.7rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 0.95rem;
+        }
+        
+        .form-group textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 992px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .section-title {
+                font-size: 1.7rem;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .menu-toggle {
+                display: block;
+            }
+            
+            nav {
+                position: fixed;
+                top: 70px;
+                left: -100%;
+                width: 80%;
+                height: calc(100vh - 70px);
+                background-color: var(--primary-color);
+                transition: left 0.3s ease;
+                padding: 1.5rem;
+                box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+            }
+            
+            nav.active {
+                left: 0;
+            }
+            
+            nav ul {
+                flex-direction: column;
+            }
+            
+            nav ul li {
+                margin: 0.8rem 0;
+            }
+            
+            .hero {
+                padding: 3rem 0;
+            }
+            
+            .hero h1 {
+                font-size: 1.8rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .section-title {
+                font-size: 1.6rem;
+            }
+            
+            .service-img {
+                height: 150px;
+            }
+            
+            .impact-stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .logo {
+                font-size: 1.3rem;
+            }
+            
+            .hero {
+                padding: 2.5rem 0;
+            }
+            
+            .hero h1 {
+                font-size: 1.6rem;
+            }
+            
+            .btn {
+                padding: 0.6rem 1.3rem;
+                font-size: 0.9rem;
+            }
+            
+            section {
+                padding: 2rem 0;
+            }
+            
+            .section-title {
+                font-size: 1.5rem;
+                margin-bottom: 1.2rem;
+            }
+            
+            .services {
+                grid-template-columns: 1fr;
+            }
+            
+            .impact-stats {
+                grid-template-columns: 1fr;
+            }
+            
+            .contact-form {
+                padding: 1.2rem;
+            }
+            
+            .footer-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .footer-column {
+                margin-bottom: 1.5rem;
+            }
+            
+            .footer-column:last-child {
+                margin-bottom: 0;
+            }
+        }
+        
+        @media (max-width: 400px) {
+            .hero h1 {
+                font-size: 1.4rem;
+            }
+            
+            .hero p {
+                font-size: 0.95rem;
+            }
+            
+            .section-title {
+                font-size: 1.4rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container header-container">
+            <div class="logo">
+                <img 
+                    src="Black Gold White Circle Elegant Football Club Logo.jpg" 
+                    
+                >
+            </div>
+            <div class="menu-toggle">☰</div>
+            <nav id="main-nav">
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#about">About Us</a></li>
+                    <li><a href="#mission">Our Mission</a></li>
+                    <li><a href="#programs">Our Programs</a></li>
+                    <li><a href="#impact">Our Impact</a></li>
+                    <li><a href="#testimonials">Testimonials</a></li>
+                    <li><a href="#requirements">Requirements</a></li>
+                    <li><a href="#contact">Contact Us</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <section id="home" class="hero">
+            <div class="container">
+                <h1>Empowering Refugees Through Technology Education</h1>
+                <p>Providing refugees in Kakuma with skills in web development, digital marketing, graphic design, and more to build better futures.</p>
+                <a href="#programs" class="btn">Explore Our Programs</a>
+            </div>
+        </section>
+
+        <section id="about" class="about-section">
+            <div class="container">
+                <h2 class="section-title">About Us</h2>
+                <p>The Refugee Coders Initiative is a non-profit organization dedicated to providing technology education and digital skills training to refugees in Kakuma camp.</p>
+                <p>We believe in the transformative power of technology to create opportunities and improve lives.</p>
+                <p>Founded in 2022, our initiative has already trained over 200 refugees in various digital skills, helping them to build careers and become self-sufficient.</p>
+            </div>
+        </section>
+
+        <section id="mission" class="mission-section">
+            <div class="container">
+                <h2 class="section-title">Our Mission</h2>
+                <p>Our mission is to bridge the digital divide by providing accessible, high-quality technology education to refugees in Kakuma. We aim to:</p>
+                <ul style="margin: 1rem 0 1rem 2rem;">
+                    <li>Equip refugees with marketable digital skills</li>
+                    <li>Provide access to technology and learning resources</li>
+                    <li>Create pathways to employment and entrepreneurship</li>
+                    <li>Foster a community of tech-savvy individuals</li>
+                    <li>Promote digital inclusion and empowerment</li>
+                </ul>
+            </div>
+        </section>
+
+        <section id="programs" class="programs-section">
+            <div class="container">
+                <h2 class="section-title">Our Programs</h2>
+                <div class="services">
+                    <div class="service-card">
+                        <div class="service-img">
+                            <span>💻</span>
+                        </div>
+                        <div class="service-content">
+                            <h3>Web Development</h3>
+                            <p>Learn HTML, CSS, and JavaScript using our custom code editor designed for beginners. Build websites and web applications from scratch.</p>
+                        </div>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-img">
+                            <span>📊</span>
+                        </div>
+                        <div class="service-content">
+                            <h3>Digital Marketing</h3>
+                            <p>Master social media marketing, SEO, content creation, and online advertising to help businesses grow their digital presence.</p>
+                        </div>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-img">
+                            <span>🎨</span>
+                        </div>
+                        <div class="service-content">
+                            <h3>Graphic Design</h3>
+                            <p>Learn to create stunning visuals using industry-standard tools. Develop skills in branding, illustration, and digital art.</p>
+                        </div>
+                    </div>
+                    <div class="service-card">
+                        <div class="service-img">
+                            <span>✍️</span>
+                        </div>
+                        <div class="service-content">
+                            <h3>Creative Writing</h3>
+                            <p>Develop your storytelling skills for blogs, social media, and professional content creation. Learn to craft compelling narratives.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="impact" class="impact-section">
+            <div class="container">
+                <h2 class="section-title">Our Impact</h2>
+                <p style="text-align: center; margin-bottom: 1.5rem;">Since our founding, we've made a significant difference in the lives of refugees in Kakuma:</p>
+                
+                <div class="impact-stats">
+                    <div class="stat-card">
+                        <div class="stat-number">200+</div>
+                        <div class="stat-label">Students Trained</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">85%</div>
+                        <div class="stat-label">Employment Rate</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">50+</div>
+                        <div class="stat-label">Projects Completed</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">12</div>
+                        <div class="stat-label">Community Partners</div>
+                    </div>
+                </div>
+                
+                <div style="margin-top: 2rem; text-align: center;">
+                    <p>Our graduates have gone on to work with international companies, start their own businesses, and mentor other refugees in the camp.</p>
+                    <p>We measure our success not just in numbers, but in the real stories of transformation and hope.</p>
+                </div>
+            </div>
+        </section>
+
+        <section id="testimonials" class="testimonials-section">
+            <div class="container">
+                <h2 class="section-title">Students' Testimonies</h2>
+                <p style="text-align: center; margin-bottom: 1.5rem;">Hear from our students about their experiences with Refugee Coders Initiative:</p>
+                
+                <div class="testimonials">
+                    <div class="testimonial-card">
+                        <p class="testimonial-text">The web development program changed my life. I now work remotely for a company in Nairobi and can support my family.</p>
+                        <div class="testimonial-author">John D.</div>
+                        <div class="testimonial-role">Web Development Graduate, 2022</div>
+                    </div>
+                    <div class="testimonial-card">
+                        <p class="testimonial-text">Before this program, I had never used a computer. Now I create digital marketing campaigns for clients worldwide.</p>
+                        <div class="testimonial-author">Amina K.</div>
+                        <div class="testimonial-role">Digital Marketing Graduate, 2023</div>
+                    </div>
+                    <div class="testimonial-card">
+                        <p class="testimonial-text">The skills I learned helped me start my own graphic design business. I'm now training others in my community.</p>
+                        <div class="testimonial-author">David M.</div>
+                        <div class="testimonial-role">Graphic Design Graduate, 2023</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section id="requirements" class="requirements-section">
+            <div class="container">
+                <h2 class="section-title">Courses Requirements</h2>
+                <p style="text-align: center; margin-bottom: 1.5rem;">Our programs are open to all refugees in Kakuma camp. Here's what you need to join:</p>
+                
+                <div class="requirements-list">
+                    <ul>
+                        <li>Basic literacy in English (all instruction is in English)</li>
+                        <li>Commitment to complete the full program (3-6 months depending on course)</li>
+                        <li>Willingness to learn and work in a team environment</li>
+                        <li>No prior tech experience required for beginner courses</li>
+                        <li>For advanced courses: completion of beginner level or equivalent knowledge</li>
+                        <li>Access to a smartphone (we provide computers for in-class work)</li>
+                        <li>Completed application form (available at our center)</li>
+                    </ul>
+                </div>
+                
+                <div style="text-align: center; margin-top: 2rem;">
+                    <p>We provide all necessary learning materials and equipment during training sessions.</p>
+                    
+                </div>
+            </div>
+        </section>
+
+        <section id="contact" class="contact-section">
+            <div class="container">
+                <h2 class="section-title">Contact Us</h2>
+                <p style="text-align: center; margin-bottom: 1.5rem;">Interested in our programs or want to support our initiative? Reach out to us!</p>
+                <div class="contact-form">
+                    <form>
+                        <div class="form-group">
+                            <label for="name">Name</label>
+                            <input type="text" id="name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="message">Message</label>
+                            <textarea id="message" required></textarea>
+                        </div>
+                        <button type="submit" class="btn" style="width: 100%;">Send Message</button>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+    <div class="footer-content">
+        <div class="footer-column">
+            <h3>Refugee Coders</h3>
+            <p>Empowering refugees in Kakuma through technology education and digital skills training.</p>
+            <div class="social-links">
+                <!-- Facebook Icon -->
+                <a href="https://facebook.com/RefugeeCoders" target="_blank" rel="noopener noreferrer" aria-label="Facebook" class="social-icon">
+                    <i class="fab fa-facebook-f"></i>
+                </a>
+                <!-- Twitter/X Icon -->
+                <a href="https://twitter.com/RefugeeCoders" target="_blank" rel="noopener noreferrer" aria-label="Twitter" class="social-icon">
+                    <i class="fab fa-x-twitter"></i>
+                </a>
+                <!-- LinkedIn Icon -->
+                <a href="https://linkedin.com/company/refugee-coders" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn" class="social-icon">
+                    <i class="fab fa-linkedin-in"></i>
+                </a>
+                <!-- Instagram Icon -->
+                <a href="https://instagram.com/refugeecoders" target="_blank" rel="noopener noreferrer" aria-label="Instagram" class="social-icon">
+                    <i class="fab fa-instagram"></i>
+                </a>
+            </div>
+        </div>
+        <div class="footer-column">
+            <h3>Quick Links</h3>
+            <ul>
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About Us</a></li>
+                <li><a href="#mission">Our Mission</a></li>
+                <li><a href="#programs">Our Programs</a></li>
+                <li><a href="#impact">Our Impact</a></li>
+                <li><a href="#testimonials">Testimonials</a></li>
+                <li><a href="#requirements">Requirements</a></li>
+                <li><a href="#contact">Contact Us</a></li>
+            </ul>
+        </div>
+        <div class="footer-column">
+            <h3>Programs</h3>
+            <ul>
+                <li><a href="#">Web Development</a></li>
+                <li><a href="#">Digital Marketing</a></li>
+                <li><a href="#">Graphic Design</a></li>
+                <li><a href="#">Creative Writing</a></li>
+                <li><a href="#">More Courses</a></li>
+            </ul>
+        </div>
+        <div class="footer-column">
+            <h3>Contact Info</h3>
+            <ul>
+                <li>Kakuma Refugee Camp</li>
+                <li>Turkana County, Kenya</li>
+                <li>Email: info@refugeecoders.org</li>
+                <li>Phone: +254 797802208</li>
+            </ul>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>&copy; <span id="current-year">2023</span> Refugee Coders Initiative. All Rights Reserved.</p>
+    </div>
+</div>
+
+<!-- Font Awesome for icons -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+    .footer-content {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 30px;
+    }
+    
+    .footer-column {
+        flex: 1;
+        min-width: 200px;
+    }
+    
+    .footer-column h3 {
+        margin-bottom: 15px;
+        font-size: 1.2rem;
+    }
+    
+    .footer-column ul {
+        list-style: none;
+        padding: 0;
+    }
+    
+    .footer-column ul li {
+        margin-bottom: 10px;
+    }
+    
+    .footer-column ul li a {
+        color: inherit;
+        text-decoration: none;
+        transition: color 0.3s ease;
+    }
+    
+    .footer-column ul li a:hover {
+        color: #1877F2; /* Facebook blue as accent color */
+    }
+    
+    .social-links {
+        display: flex;
+        gap: 15px;
+        margin-top: 15px;
+    }
+    
+    .social-icon {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        font-size: 20px;
+        color: white;
+        text-decoration: none;
+        transition: transform 0.3s ease;
+    }
+    
+    .social-icon:hover {
+        transform: scale(1.1);
+    }
+    
+    /* Facebook */
+    .social-links a:nth-child(1) {
+        background-color: #1877F2;
+    }
+    
+    /* Twitter/X */
+    .social-links a:nth-child(2) {
+        background-color: #000000;
+    }
+    
+    /* LinkedIn */
+    .social-links a:nth-child(3) {
+        background-color: #0077B5;
+    }
+    
+    /* Instagram */
+    .social-links a:nth-child(4) {
+        background: radial-gradient(circle at 30% 107%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285AEB 90%);
+    }
+    
+    .footer-bottom {
+        margin-top: 30px;
+        padding-top: 20px;
+        border-top: 1px solid #eee;
+        text-align: center;
+    }
+</style>
+        
+   
+
+    <script>
+        // Update the year automatically
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+        
+        // Mobile menu toggle
+        document.querySelector('.menu-toggle').addEventListener('click', function() {
+            document.getElementById('main-nav').classList.toggle('active');
+        });
+        
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('nav a').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                window.scrollTo({
+                    top: targetElement.offsetTop - 70,
+                    behavior: 'smooth'
+                });
+                
+                // Close mobile menu if open
+                document.getElementById('main-nav').classList.remove('active');
+            });
+        });
+        
+        // Close menu when clicking outside on mobile
+        document.addEventListener('click', function(e) {
+            const nav = document.getElementById('main-nav');
+            const menuToggle = document.querySelector('.menu-toggle');
+            
+            if (nav.classList.contains('active') && 
+                e.target !== menuToggle && 
+                !menuToggle.contains(e.target) && 
+                e.target !== nav && 
+                !nav.contains(e.target)) {
+                nav.classList.remove('active');
+            }
+        });
+    </script>
+</body>
+</html>
